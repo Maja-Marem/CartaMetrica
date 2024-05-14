@@ -52,3 +52,13 @@ function getEasting (E_Prev, Departure){
     let easting = E_Prev + latitude
     return easting
 }
+
+function getLEC (Sum_Lat, Sum_Dep) {
+    let LEC = sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))
+    return LEC
+}
+
+function getBoSE (Sum_Lat, Sum_Dep){
+    let BoSE = atan(Sum_Dep/Sum_Lat)
+    return BoSE
+}
