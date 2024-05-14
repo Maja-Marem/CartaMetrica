@@ -54,7 +54,7 @@ function getEasting (E_Prev, departure){
 }
 
 function getLEC (Sum_Lat, Sum_Dep) {
-    let LEC = sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))
+    let LEC = sqrt((pow(Sum_Lat, 2)) + (pow(Sum_Dep,2)))
     return LEC
 }
 
