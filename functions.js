@@ -44,12 +44,12 @@ function getNorthing (N_Prev, latitude){
     return northing
 }
 
-function getEasting (E_Prev, Departure){
+function getEasting (E_Prev, departure){
     /*
     calculates the Northing of the line using the calculated
     parameters N_Preve and Latitude
     */
-    let easting = E_Prev + latitude
+    let easting = E_Prev + departure
     return easting
 }
 
