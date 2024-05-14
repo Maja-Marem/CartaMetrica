@@ -1,8 +1,3 @@
-// Initialization [set Values]
-var N_Origin = 20000
-var E_Origin = 20000
-var line_counter = 1
-
  // Imports "Relevant functions outside python"
  const { abs, floor, cos, sin, atan, sqrt, pow } = Math
  const radians = Math.PI/180
