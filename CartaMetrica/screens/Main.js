@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
-const Main = () => {
+const Main = ({navigation}) => {
   const [lines, setLines] = useState([]);
   const [distance, setDistance] = useState('');
   const [azimuth, setAzimuth] = useState('');
@@ -18,11 +18,11 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Welcome to Plotting</Text>
+      <Text>Welcome to CartaMetrica</Text>
       {lines.length > 0 && (
         <View style={styles.linesContainer}>
           {lines.map((line, index) => (
-            <Text key={index}>{`Distance: ${line.distance}, Azimuth: ${line.azimuth}`}</Text>
+            <Text key={index}>{`Line ${index+1}: ${line.distance}, ${line.azimuth} deg from the SOuth`}</Text>
           ))}
         </View>
       )}
@@ -43,6 +43,10 @@ const Main = () => {
         />
       </View>
       <Button title="Add new line?" onPress={addLine} />
+      <Button
+        title="Go to Plotting"
+        onPress={() => navigation.navigate('Plotting')}
+      />
     </View>
   );
 };
