@@ -23,9 +23,6 @@ const App = () => {
 
 export default App;
 
-import React from 'react'
-import { Picker } from '@react-native-picker/picker';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 
 export default  function App(){
 
@@ -150,3 +147,4 @@ function getBoSE (Sum_Lat, Sum_Dep){
 }
 
 }
+
