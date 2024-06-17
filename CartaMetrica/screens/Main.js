@@ -99,3 +99,8 @@ const styles = StyleSheet.create({
 
 export default Main;
 
+import React from 'react';
+import { StyleSheet, View, Button, Alert } from 'react-native';
+
+// Importing functions
+
