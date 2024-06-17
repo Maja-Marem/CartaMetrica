@@ -9,26 +9,45 @@ const blurhash =
 
 const Main = ({ navigation }) => {
 
-  const [isEditing, setIsEditing] = useState(false)
-  const [lines, setLines] = useState([]);
+  const [isEditing, setIsEditing] = useState(true)
+  const [editingIndex, setEditingIndex] = useState(0)
+  const [lines, setLines] = useState([{"azimuth": "", "distance": ""}]);
   const [distance, setDistance] = useState('');
   const [azimuth, setAzimuth] = useState('');
+  const [error, setError] = useState('');
 
   const addLine = () => {
-    if (distance !== '' && azimuth !== '') {
-      const newLines = [...lines, { distance, azimuth }];
-      console.log(newLines)
+    if (isEditing) {
+      setError("Please save your line first.")
+    } else {
+      const newLines = [...lines, { "azimuth": "", "distance": "" }];
       setLines(newLines);
-      setDistance('');
-      setAzimuth('');
+      setEditingIndex(newLines.length - 1);
     }
   };
+
+  const editLine = (index) => {
+    setEditingIndex(index);
+  }
 
   const deleteLine = (index) => {
     const newLines = [...lines];
     newLines.splice(index, 1);
     setLines(newLines);
   }
+
+  const saveLine = (index) => {
+    if (distance !== '' && azimuth !== '') {
+      const newLines = [...lines];
+      newLines[index] = { distance, azimuth };
+      setLines(newLines);
+      setDistance('');
+      setAzimuth('');
+      setEditingIndex(-1);
+      setIsEditing(false)
+      setError('')
+    }
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -54,41 +73,51 @@ const Main = ({ navigation }) => {
           {lines.length > 0 && (
             <View style={styles.linesContainer}>
               {lines.map((line, index) => (
+                <>
+                { editingIndex === index ?
+                  <View style={styles.inputContainer} key={index}>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Distance"
+                      keyboardType="numeric"
+                      value={distance}
+                      onChangeText={setDistance}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Azimuth"
+                      keyboardType="numeric"
+                      value={azimuth}
+                      onChangeText={setAzimuth}
+                    />
+                    <TouchableOpacity style={{width: '20%', justifyContent: 'center', alignItems: 'center'}} onPress={() => saveLine(index)}>
+                      <Ionicons name="checkmark-sharp" size={30} color="black" />
+                    </TouchableOpacity>
+                  </View>
+                :
                 <View style={styles.inputContainer} key={index}>
                   <Text style={{width: '35%', textAlign: 'center', fontWeight: 'bold', fontSize: 16, marginBottom: 10}}>{line.distance}</Text>
                   <Text style={{width: '35%', textAlign: 'center', fontWeight: 'bold', fontSize: 16, marginBottom: 10}}>{line.azimuth}</Text>
-                  <TouchableOpacity style={{width: '15%'}} onPress={() => { /* Edit Action */ }}>
+                  <TouchableOpacity style={{width: '15%', justifyContent: 'center', alignItems: 'center'}} onPress={() => {() => editLine(index)}}>
                     <Ionicons name="pencil" size={24} color="black" />
                   </TouchableOpacity>
-                  <TouchableOpacity style={{width: '15%'}} onPress={() => deleteLine(index)}>
+                  <TouchableOpacity style={{width: '15%', justifyContent: 'center', alignItems: 'center'}} onPress={() => deleteLine(index)}>
                     <Ionicons name="trash" size={24} color="black" />
                   </TouchableOpacity>
                 </View>
+                }
+                </>
               ))}
             </View>
           )}
 
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Distance"
-              keyboardType="numeric"
-              value={distance}
-              onChangeText={setDistance}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Azimuth"
-              keyboardType="numeric"
-              value={azimuth}
-              onChangeText={setAzimuth}
-            />
-          </View>
-
-          <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}} onPress={addLine}>
+          <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: 30}} onPress={addLine}>
             <Ionicons name="add-circle-outline" size={18} color="black" />
             <Text style={{fontSize: 16}}>  Add a new line...</Text>
           </TouchableOpacity>
+
+          <Text style={{textAlign: 'center', marginBottom: 10, color: 'crimson'}}>{error}</Text>
+
 
         </ScrollView>
       </View>
