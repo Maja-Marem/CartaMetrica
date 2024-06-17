@@ -149,7 +149,7 @@ export function getLEC (lines) {
     }
        
     //calculate LEC
-    let LEC = (sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))).toFixed(5)
+    let LEC = (sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))).toFixed(10)
 
     return LEC
 } 
