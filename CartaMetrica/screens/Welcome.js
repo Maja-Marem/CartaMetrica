@@ -1,7 +1,6 @@
 // screens/Welcome.js
 import React from 'react';
-import { Image } from 'expo-image';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, Image } from 'react-native';
 import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
 
 
@@ -16,7 +15,7 @@ const Welcome = ({ navigation }) => {
           style={styles.image}
           source={Cartametrica_Logo}
           placeholder={blurhash}
-          contentFit="cover"
+          resizeMode="contain"
           transition={1000}
         />
       </View>
@@ -71,5 +70,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
+  },
+  image: {
+    height: '100%',
+    aspectRatio: 1
   }
   });
