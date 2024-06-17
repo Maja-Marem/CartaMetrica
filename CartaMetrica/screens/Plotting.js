@@ -1,6 +1,7 @@
 // screens/Plotting.js
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { Image } from 'expo-image';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
 
 const blurhash =

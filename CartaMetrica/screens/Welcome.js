@@ -2,7 +2,7 @@
 import React from 'react';
 import { Image } from 'expo-image';
 import { StyleSheet, View, Text, Button } from 'react-native';
-import Cartametrica_Logo from './pictures/Cartametrica_Logo.png'
+import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
 
 
 const blurhash =
