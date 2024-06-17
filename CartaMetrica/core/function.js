@@ -349,24 +349,3 @@ function getBoSE (lines){
         return BoSE
     }
 }
-    
-var data = [
-    [13.23, 124.795], 
-    [15.57, 14.143], 
-    [43.36, 270.000], 
-    [23.09, 188.169], 
-    [10.99, 180.000], 
-    [41.40, 50.562], 
-]
-
-Coordinates = getCoords(data)
-console.log(Coordinates)
-
-LEC = getLEC(data)
-console.log(LEC)
-
-REC = getREC(data)
-console.log(REC)
-
-BoSE = getBoSE(data)
-console.log(BoSE)
