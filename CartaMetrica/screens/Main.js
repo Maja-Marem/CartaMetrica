@@ -65,9 +65,7 @@ const Main = ({ navigation }) => {
     // Sample Input: [{"azimuth": "13", "distance": "12"}, {"azimuth": "14", "distance": "15"}, {"azimuth": "168", "distance": "14"}]
     let linearerrorofclosure = 0
     let lines = [{"azimuth": "13", "distance": "12"}, {"azimuth": "14", "distance": "15"}, {"azimuth": "168", "distance": "14"}]
-    getREC(lines)
     getLEC(lines)
-    setREC(linearerrorofclosure)
     setLEC(linearerrorofclosure)
   }
 
