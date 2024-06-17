@@ -3,8 +3,8 @@
  const radians = Math.PI/180
  const degrees = 180/Math.PI
 
- // CALCULATING NORTHING FOR PLOT
-function getCoords(lines){
+ // CALCULATING NORTHING and EASTING FOR PLOT
+export function getCoords(lines){
     /*
     Description:
     This Function calculates the Northings and Easting of Points
@@ -94,7 +94,7 @@ function getCoords(lines){
     return Coordinates
 }
 // CALCULATIG CORRECTIONS
-function getLEC (lines) {
+export function getLEC (lines) {
     /*
     This function calculates the Linear Error of Closure using
     the distance and azimuth north of the lines of the traverse
@@ -154,7 +154,7 @@ function getLEC (lines) {
     return LEC
 } 
 
-function getREC (lines) {
+export function getREC (lines) {
     /*
     This function calculates the REC using
     the provided parameters
@@ -237,7 +237,7 @@ function getREC (lines) {
         }
 }
 
-function getBoSE (lines){
+export function getBoSE (lines){
     /*
     This function calculates the BoSE using
     the provided parameters

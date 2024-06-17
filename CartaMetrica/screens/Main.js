@@ -174,4 +174,7 @@ const styles = StyleSheet.create({
     width: '35%',
     textAlign: 'center',
   },
-  });
+});
+
+export default Main;
+
