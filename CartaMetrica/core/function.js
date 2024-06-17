@@ -3,7 +3,7 @@
  const radians = Math.PI/180
  const degrees = 180/Math.PI
 
- // CALCULATING NORTHING FOR PLOT
+ // CALCULATING NORTHING and EASTING FOR PLOT
 export function getCoords(lines){
     /*
     Description:
