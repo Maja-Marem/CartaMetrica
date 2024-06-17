@@ -3,117 +3,46 @@
  const radians = Math.PI/180
  const degrees = 180/Math.PI
 
-//  Functions for calculating latitude and departure
-function getLatitude (distance, azimuth_N) {
-   /*
-    Calculates the Latitude of the line using the set parameters
-
-    The product of negative distance and cos azimuth from the
-    south in radians
-
-    Parameters: distance, azimuth
-    */
-    let latitude = (distance*cos(radians*azimuth_N))
-    return latitude
-}
-
-function getDeparture (distance, azimuth_N) {
-    /*
-    Calculates the Departure of the line using the set parameters
-
-    The product of negative distance and sin azimuth from the
-    south in radians
-
-    Parameters: distance, azimuth
-     */
-     let departure = (distance*sin(radians*azimuth_N))
-     return departure
-}
-
-function getNorthing (N_Prev, latitude){
-    /*
-    calculates the Northing of the line using the calculated
-    parameters N_Preve and Latitude
-    */
-    let northing = N_Prev + latitude
-    return northing
-}
-
-function getEasting (E_Prev, departure){
-    /*
-    calculates the Northing of the line using the calculated
-    parameters N_Preve and Latitude
-    */
-    let easting = E_Prev + departure
-    return easting
-}
-
-function getLEC (Sum_Lat, Sum_Dep) {
-    /*
-    calculate the LEC using Sum_Lat and Sum_Dep
-    */
-    let LEC = sqrt((pow(Sum_Lat, 2)) + (pow(Sum_Dep,2)))
-    return LEC
-}
-
-function getBoSE (Sum_Lat, Sum_Dep){
-    /*
-    Calculating BoSE using Sum_Lat and Sum_Dep
-    */
-    if (Sum_Lat < 0 && Sum_Dep < 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
-        let BoSE_degs = parseInt(BoSE_mag)
-        let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
-        let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
-        let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "N" + BoSE_dms + "E"
-        return BoSE
+ // CALCULATING NORTHING FOR PLOT
+function getNorthings(lines){
+    // list of calculated latitudes
+    let lat_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i = 0; i < lines.length; i++) {
+        let distance = row[i][0]
+        let azimuth_n = row[i][1]
+        let latitude = (distance*cos(radians*azimuth_n))
+        lat_of_lines.push(latitude);
     }
-    else if (Sum_Lat < 0 && Sum_Dep > 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
-        let BoSE_degs = parseInt(BoSE_mag)
-        let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
-        let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
-        let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "N" + BoSE_dms + "W"
-        return BoSE
+
+    // list of cumulative LatSums
+    let LatSums = 0
+    let cumulativeLatSums = [];
+
+    for (let j = 0; j < lat_of_lines.length; j++) {
+        LatSums += lat_of_lines[j]
+        cumulativeLatSums.push(LatSums)
     }
-    else if (Sum_Lat > 0 && Sum_Dep > 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
-        let BoSE_degs = parseInt(BoSE_mag)
-        let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
-        let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
-        let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "S" + BoSE_dms + "W"
-        return BoSE
-    }
-    else if (Sum_Lat > 0 && Sum_Dep < 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
-        let BoSE_degs = parseInt(BoSE_mag)
-        let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
-        let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
-        let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "S" + BoSE_dms + "E"
-        return BoSE
-    }
-    else if (Sum_Lat == 0 && Sum_Dep < 0){
-        let BoSE = "Due East"
-        return BoSE
-    }
-    else if (Sum_Lat == 0 && Sum_Dep > 0){
-        let BoSE = "Due West"
-        return BoSE
-    }
-    else if (Sum_Dep == 0 && Sum_Lat < 0){
-        let BoSE = "Due North"
-        return BoSE
-    }
-    else if (Sum_Dep == 0 && Sum_Lat > 0){
-        let BoSE = "Due South"
-        return BoSE
-    }
-    else {
-        let BoSE = "EWAN"
-        return BoSE
+
+    // list of Northings (P1northing - 20000)
+    let Northings = [20000];
+
+    // calculate Northings
+    for (let k = 0; k < cumulativeLatSums; k++) {
+        let N_coord = 20000 + cumulativeLatSums[k]
+        Northings.push(N_coord)
     }
 }
+
+var data = [
+    [13.23, 124.795], 
+    [15.57, 14.143], 
+    [43.36, 270.000], 
+    [23.09, 188.169], 
+    [10.99, 180.000], 
+    [41.40, 50.562], 
+]
+
+Northing = getNorthings(data)
+console.log(Northing)
