@@ -29,8 +29,8 @@ export function getCoords(lines){
     
     // calculate latitude for each line
     for (let i = 0; i < lines.length; i++) {
-        let distance = lines[i][0];
-        let azimuth_n = lines[i][1];
+        let distance = parseInt(lines[i].distance, 10);
+        let azimuth_n = parseInt(lines[i].azimuth, 10);
         let latitude = (distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
@@ -56,10 +56,10 @@ export function getCoords(lines){
     // list of calculated departures
     let dep_of_lines = [];
     
-    // calculate latitude for each line
+    // calculate departure for each line
     for (let i1 = 0; i1 < lines.length; i1++) {
-        let distance = lines[i1][0];
-        let azimuth_n = lines[i1][1];
+        let distance = parseInt(lines[i1].distance, 10);
+        let azimuth_n = parseInt(lines[i1].azimuth, 10);
         let departure = (distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
@@ -116,8 +116,8 @@ export function getLEC (lines) {
     
     // calculate latitude for each line
     for (let i = 0; i < lines.length; i++) {
-        let distance = lines[i][0];
-        let azimuth_n = lines[i][1];
+        let distance = parseInt(lines[i].distance, 10);
+        let azimuth_n = parseInt(lines[i].azimuth, 10);
         let latitude = (distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
@@ -135,8 +135,8 @@ export function getLEC (lines) {
     
     // calculate latitude for each line
     for (let i1 = 0; i1 < lines.length; i1++) {
-        let distance = lines[i1][0];
-        let azimuth_n = lines[i1][1];
+        let distance = parseInt(lines[i1].distance, 10);
+        let azimuth_n = parseInt(lines[i1].azimuth, 10);
         let departure = (distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
@@ -177,8 +177,8 @@ export function getREC (lines) {
     
     // calculate latitude for each line
     for (let i = 0; i < lines.length; i++) {
-        let distance = lines[i][0];
-        let azimuth_n = lines[i][1];
+        let distance = parseInt(lines[i].distance, 10);
+        let azimuth_n = parseInt(lines[i].azimuth, 10);
         let latitude = (distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
@@ -196,8 +196,8 @@ export function getREC (lines) {
     
     // calculate latitude for each line
     for (let i1 = 0; i1 < lines.length; i1++) {
-        let distance = lines[i1][0];
-        let azimuth_n = lines[i1][1];
+        let distance = parseInt(lines[i1].distance, 10);
+        let azimuth_n = parseInt(lines[i1].azimuth, 10);
         let departure = (distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
@@ -217,7 +217,7 @@ export function getREC (lines) {
 
     // calculate total distance of the traverse
     for (let i = 0; i < lines.length; i++) {
-        let distance = lines[i][0];
+        let distance = parseInt(lines[i].distance, 10);
         Tot_Distance += distance
     }
 
@@ -259,8 +259,8 @@ export function getBoSE (lines){
     
     // calculate latitude for each line
     for (let i = 0; i < lines.length; i++) {
-        let distance = lines[i][0];
-        let azimuth_n = lines[i][1];
+        let distance = parseInt(lines[i].distance, 10);
+        let azimuth_n = parseInt(lines[i].azimuth, 10);
         let latitude = (distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
@@ -278,8 +278,8 @@ export function getBoSE (lines){
     
     // calculate latitude for each line
     for (let i1 = 0; i1 < lines.length; i1++) {
-        let distance = lines[i1][0];
-        let azimuth_n = lines[i1][1];
+        let distance = parseInt(lines[i1].distance, 10);
+        let azimuth_n = parseInt(lines[i1].azimuth, 10);
         let departure = (distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
@@ -349,3 +349,4 @@ export function getBoSE (lines){
         return BoSE
     }
 }
+

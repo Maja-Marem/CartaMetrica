@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { StyleSheet, View, Text, Button, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
+import { getLEC } from '../core/function';
 
 const blurhash =
 '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
@@ -64,7 +65,9 @@ const Main = ({ navigation }) => {
     // Sample Input: [{"azimuth": "13", "distance": "12"}, {"azimuth": "14", "distance": "15"}, {"azimuth": "168", "distance": "14"}]
     let linearerrorofclosure = 0
     let lines = [{"azimuth": "13", "distance": "12"}, {"azimuth": "14", "distance": "15"}, {"azimuth": "168", "distance": "14"}]
-
+    getREC(lines)
+    getLEC(lines)
+    setREC(linearerrorofclosure)
     setLEC(linearerrorofclosure)
   }
 
