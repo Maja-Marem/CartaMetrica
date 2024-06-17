@@ -11,13 +11,19 @@ function getCoords(lines){
     in a traverse with initial point at coordinates 
     (N: 20000; E: 20000)
 
+    Process: 
+    Calculate Latitudes and Departures
+    Calculate Cumulative Sum of Latitudes and Departures
+    Calculate Northings and Eastings
+
     Output: 
     List of Lists of Northing and Easting 
-    Rounded to the nearest thousndths
+    Rounded to the nearest thousandths
 
     Parameters:
     List of Line Descriptions - distance and azimuth from the North
     */
+
     // list of calculated latitudes
     let lat_of_lines = [];
     
@@ -43,7 +49,7 @@ function getCoords(lines){
 
     // calculate Northings
     for (let k = 0; k < cumulativeLatSums.length; k++) {
-        let N_coord = 20000 + cumulativeLatSums[k]
+        let N_coord = (20000 + cumulativeLatSums[k]).toFixed(3)
         Northings.push(N_coord);
     }
 
@@ -72,7 +78,7 @@ function getCoords(lines){
 
     // calculate Northings
     for (let k1 = 0; k1 < cumulativeLatSums.length; k1++) {
-        let E_coord = 20000 + cumulativeDepSums[k1]
+        let E_coord = (20000 + cumulativeDepSums[k1]).toFixed(3)
         Eastings.push(E_coord);
     }
 
@@ -88,9 +94,21 @@ function getCoords(lines){
     return Coordinates
 }
 // CALCULATIG CORRECTIONS
-export function getLEC (lines) {
+function getLEC (lines) {
     /*
-    
+    This function calculates the Linear Error of Closure using
+    the distance and azimuth north of the lines of the traverse
+
+    Process:
+    calculate latitudes and departures
+    get sum of latitudes and sum of departures
+    calculate the LEC
+
+    Output:
+    Linear Error of Closure rounded to the nearest hundred-thousandths
+
+    Parameter:
+    List of Line Descriptions - distance and azimuth from the North
     */
 
     // list of calculated latitudes
@@ -104,41 +122,92 @@ export function getLEC (lines) {
         lat_of_lines.push(latitude);
     }
 
-    // list of cumulative LatSums
+    // Summ of Latitudes
     let LatSum = 0
 
     // calculating LatSum
     for (let i = 0; i < lat_of_lines.length; i++) {
-        LatSum += lat_of_lines [i] ;
+        LatSum += lat_of_lines[i] ;
+    }
+
+    // list of calculated departures
+    let dep_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i1 = 0; i1 < lines.length; i1++) {
+        let distance = lines[i1][0];
+        let azimuth_n = lines[i1][1];
+        let departure = (distance*sin(radians*azimuth_n))
+        dep_of_lines.push(departure);
+    }
+    // Sum of Departures
+    let DepSum = 0
+
+    // calculate departure for each line
+    for (let i1 = 0; i1 < dep_of_lines.length; i1++) {
+        DepSum += dep_of_lines[i1];
     }
         
-// list of calculated departures
-let dep_of_lines = [];
-    
-// calculate latitude for each line
-for (let i = 0; i < lines.length; i++) {
-    let distance = lines[i][0];
-    let azimuth_n = lines[i][1];
-    let departure = (distance*sin(radians*azimuth_n))
-    dep_of_lines.push(departure);
-}
-
-// list of cumulative LatSums
-let DepSum = 0
-
-// calculating LatSum
-for (let i = 0; i < dep_of_lines.length; i++) {
-    DepSum += dep_of_lines [i] ;
-}
-
-    let LEC = sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))
+    let LEC = (sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))).toFixed(5)
     return LEC
 } 
 
-function getREC (LEC, Sum_Dist) {
-    let cREC = SumDist/LEC
-    let REC = "1:"+ cREC
-    return REC
+function getREC (lines) {
+    /*
+    This function calculates the REC using
+    the distance and azimuth north of the lines of the traverse
+
+    Process:
+    calculate latitudes and departures
+    get sum of latitudes and sum of departures
+    calculate the LEC
+    Calculate REC
+
+    Output:
+    REC rounded to the nearest hundred-thousandths
+
+    Parameter:
+    List of Line Descriptions - distance and azimuth from the North
+    */
+
+    // list of calculated latitudes
+    let lat_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i = 0; i < lines.length; i++) {
+        let distance = lines[i][0];
+        let azimuth_n = lines[i][1];
+        let latitude = (distance*cos(radians*azimuth_n))
+        lat_of_lines.push(latitude);
+    }
+
+    // Summ of Latitudes
+    let LatSum = 0
+
+    // calculating LatSum
+    for (let i = 0; i < lat_of_lines.length; i++) {
+        LatSum += lat_of_lines[i] ;
+    }
+
+    // list of calculated departures
+    let dep_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i1 = 0; i1 < lines.length; i1++) {
+        let distance = lines[i1][0];
+        let azimuth_n = lines[i1][1];
+        let departure = (distance*sin(radians*azimuth_n))
+        dep_of_lines.push(departure);
+    }
+    // Sum of Departures
+    let DepSum = 0
+
+    // calculate departure for each line
+    for (let i1 = 0; i1 < dep_of_lines.length; i1++) {
+        DepSum += dep_of_lines[i1];
+    }
+        
+    let LEC = (sqrt((pow(LatSum, 2)) + (pow(DepSum,2))))
 }
 
 function getBoSE (Sum_Lat, Sum_Dep){
@@ -216,4 +285,11 @@ var data = [
 Coordinates = getCoords(data)
 console.log(Coordinates)
 
+LEC = getLEC(data)
+console.log(LEC)
 
+REC = getREC(data)
+console.log(REC)
+
+BoSE = getBoSE(data)
+console.log(BoSE)
