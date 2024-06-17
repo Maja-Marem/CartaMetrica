@@ -62,9 +62,7 @@ const Main = ({ navigation }) => {
 
   const calculate = () => {
     // Put the function of computing your LEC and REC here
-    // Sample Input: [{"azimuth": "13", "distance": "12"}, {"azimuth": "14", "distance": "15"}, {"azimuth": "168", "distance": "14"}]
-    let lines = [{"azimuth": "13", "distance": "12"}, {"azimuth": "14", "distance": "15"}, {"azimuth": "168", "distance": "14"}]
-    let linearerrorofclosure = getLEC(lines)
+    let linearerrorofclosure = getLEC(newLlines)
     setLEC(linearerrorofclosure)
   }
 
