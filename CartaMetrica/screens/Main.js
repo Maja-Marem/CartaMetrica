@@ -15,6 +15,7 @@ const Main = ({ navigation }) => {
   const [distance, setDistance] = useState('');
   const [azimuth, setAzimuth] = useState('');
   const [error, setError] = useState('');
+  const [LEC, setLEC] = useState(0);
 
   const addLine = () => {
     if (isEditing) {
@@ -57,6 +58,13 @@ const Main = ({ navigation }) => {
       setError("Please input your distance and azimuth first.")
     }
   };
+
+  const calculate = () => {
+    // Put the function of computing your LEC and REC here
+    let linearerrorofclosure = 0
+
+    setLEC(linearerrorofclosure)
+  }
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -126,15 +134,14 @@ const Main = ({ navigation }) => {
           </TouchableOpacity>
 
           <Text style={{textAlign: 'center', marginBottom: 10, color: 'crimson'}}>{error}</Text>
-
-
+          <Text style={{textAlign: 'center', marginBottom: 10, color: 'crimson'}}>LEC: {LEC} </Text>
         </ScrollView>
       </View>
 
       <View style={styles.box3}>
         <Button
           title="PLOT >"
-          onPress={() => navigation.navigate('Plotting')}
+          onPress={()=>calculate()}
         />
       </View>
 
