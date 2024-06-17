@@ -62,7 +62,7 @@ const Main = ({ navigation }) => {
 
   const calculate = () => {
     // Put the function of computing your LEC and REC here
-    let linearerrorofclosure = getLEC(newLines)
+    let linearerrorofclosure = getLEC(lines)
     setLEC(linearerrorofclosure)
   }
 
