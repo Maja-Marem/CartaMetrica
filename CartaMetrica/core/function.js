@@ -147,15 +147,17 @@ function getLEC (lines) {
     for (let i1 = 0; i1 < dep_of_lines.length; i1++) {
         DepSum += dep_of_lines[i1];
     }
-        
+       
+    //calculate LEC
     let LEC = (sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))).toFixed(5)
+
     return LEC
 } 
 
 function getREC (lines) {
     /*
     This function calculates the REC using
-    the distance and azimuth north of the lines of the traverse
+    the provided parameters
 
     Process:
     calculate latitudes and departures
@@ -164,7 +166,7 @@ function getREC (lines) {
     Calculate REC
 
     Output:
-    REC rounded to the nearest hundred-thousandths
+    REC rounded to the nearest hundreds
 
     Parameter:
     List of Line Descriptions - distance and azimuth from the North
@@ -206,69 +208,144 @@ function getREC (lines) {
     for (let i1 = 0; i1 < dep_of_lines.length; i1++) {
         DepSum += dep_of_lines[i1];
     }
-        
+    
+    // calculate LEC
     let LEC = (sqrt((pow(LatSum, 2)) + (pow(DepSum,2))))
+
+    // total distance
+    let Tot_Distance = 0
+
+    // calculate total distance of the traverse
+    for (let i = 0; i < lines.length; i++) {
+        let distance = lines[i][0];
+        Tot_Distance += distance
+    }
+
+    // Calculate REC
+    let cREC = Tot_Distance/LEC
+        if (cREC > 1000){
+            let REC = "1:" + floor((cREC)/1000)*1000
+            return REC
+        }
+        else if (cREC) {
+            let REC = "ERROR: Calculated REC is Below accepted error of closure tolerance"
+            return REC
+        }
+        else{
+            let REC = "ERROR: 404"
+            return REC
+        }
 }
 
-function getBoSE (Sum_Lat, Sum_Dep){
+function getBoSE (lines){
     /*
-    Calculating BoSE using Sum_Lat and Sum_Dep
+    This function calculates the BoSE using
+    the provided parameters
+
+    Process:
+    calculate latitudes and departures
+    get sum of latitudes and sum of departures
+    calculate BoSE
+
+    Output:
+    BoSE in Bearing From - up to decimal places at the seconds value
+
+    Parameter:
+    List of Line Descriptions - distance and azimuth from the North
     */
 
-    if (Sum_Lat < 0 && Sum_Dep < 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
+    // list of calculated latitudes
+    let lat_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i = 0; i < lines.length; i++) {
+        let distance = lines[i][0];
+        let azimuth_n = lines[i][1];
+        let latitude = (distance*cos(radians*azimuth_n))
+        lat_of_lines.push(latitude);
+    }
+
+    // Summ of Latitudes
+    let LatSum = 0
+
+    // calculating LatSum
+    for (let i = 0; i < lat_of_lines.length; i++) {
+        LatSum += lat_of_lines[i] ;
+    }
+
+    // list of calculated departures
+    let dep_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i1 = 0; i1 < lines.length; i1++) {
+        let distance = lines[i1][0];
+        let azimuth_n = lines[i1][1];
+        let departure = (distance*sin(radians*azimuth_n))
+        dep_of_lines.push(departure);
+    }
+    // Sum of Departures
+    let DepSum = 0
+
+    // calculate departure for each line
+    for (let i1 = 0; i1 < dep_of_lines.length; i1++) {
+        DepSum += dep_of_lines[i1];
+    }
+
+    // Calculating for the BoSE - based on difference cases
+    if (LatSum < 0 && DepSum < 0){
+        let BoSE_mag = atan(DepSum/LatSum)*degrees
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
         let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "N" + BoSE_dms + "E"
+        let BoSE = "N " + BoSE_dms + " E"
         return BoSE
     }
-    else if (Sum_Lat < 0 && Sum_Dep > 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
+    else if (LatSum < 0 && DepSum > 0){
+        let BoSE_mag = atan(DepSum/LatSum)*degrees
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
         let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "N" + BoSE_dms + "W"
+        let BoSE = "N " + BoSE_dms + " W"
         return BoSE
     }
-    else if (Sum_Lat > 0 && Sum_Dep > 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
+    else if (LatSum > 0 && DepSum > 0){
+        let BoSE_mag = atan(DepSum/LatSum)*degrees
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
         let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "S" + BoSE_dms + "W"
+        let BoSE = "S " + BoSE_dms + " W"
         return BoSE
     }
-    else if (Sum_Lat > 0 && Sum_Dep < 0){
-        let BoSE_mag = atan(Sum_Dep/Sum_Lat)*degrees
+    else if (LatSum > 0 && DepSum < 0){
+        let BoSE_mag = atan(DepSum/LatSum)*degrees
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
         let BoSE_dms = BoSE_degs + "-" + BoSE_mins + "-" + BoSE_secs
-        let BoSE = "S" + BoSE_dms + "E"
+        let BoSE = "S " + BoSE_dms + " E"
         return BoSE
     }
-    else if (Sum_Lat == 0 && Sum_Dep < 0){
+    else if (LatSum == 0 && DepSum < 0){
         let BoSE = "Due East"
         return BoSE
     }
-    else if (Sum_Lat == 0 && Sum_Dep > 0){
+    else if (LatSum == 0 && DepSum > 0){
         let BoSE = "Due West"
         return BoSE
     }
-    else if (Sum_Dep == 0 && Sum_Lat < 0){
+    else if (DepSum == 0 && LatSum < 0){
         let BoSE = "Due North"
         return BoSE
     }
-    else if (Sum_Dep == 0 && Sum_Lat > 0){
+    else if (DepSum == 0 && LatSum > 0){
         let BoSE = "Due South"
         return BoSE
     }
     else {
-        let BoSE = "EWAN"
+        let BoSE = "ERROR: 404"
         return BoSE
     }
 }
