@@ -23,11 +23,18 @@ const Main = ({ navigation }) => {
       const newLines = [...lines, { "azimuth": "", "distance": "" }];
       setLines(newLines);
       setEditingIndex(newLines.length - 1);
+      setIsEditing(true)
     }
   };
 
   const editLine = (index) => {
-    setEditingIndex(index);
+    if (!isEditing) {
+      setEditingIndex(index)
+      setDistance(lines[index].distance)
+      setAzimuth(lines[index].azimuth)
+    } else {
+      setError("Please save your line first.")
+    }
   }
 
   const deleteLine = (index) => {
@@ -46,6 +53,8 @@ const Main = ({ navigation }) => {
       setEditingIndex(-1);
       setIsEditing(false)
       setError('')
+    } else {
+      setError("Please input your distance and azimuth first.")
     }
   };
 
@@ -98,7 +107,7 @@ const Main = ({ navigation }) => {
                 <View style={styles.inputContainer} key={index}>
                   <Text style={{width: '35%', textAlign: 'center', fontWeight: 'bold', fontSize: 16, marginBottom: 10}}>{line.distance}</Text>
                   <Text style={{width: '35%', textAlign: 'center', fontWeight: 'bold', fontSize: 16, marginBottom: 10}}>{line.azimuth}</Text>
-                  <TouchableOpacity style={{width: '15%', justifyContent: 'center', alignItems: 'center'}} onPress={() => {() => editLine(index)}}>
+                  <TouchableOpacity style={{width: '15%', justifyContent: 'center', alignItems: 'center'}} onPress={() => editLine(index)}>
                     <Ionicons name="pencil" size={24} color="black" />
                   </TouchableOpacity>
                   <TouchableOpacity style={{width: '15%', justifyContent: 'center', alignItems: 'center'}} onPress={() => deleteLine(index)}>
