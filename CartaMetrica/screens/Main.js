@@ -1,7 +1,7 @@
 // screens/Main.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import Cartametrica_Logo from './pictures/Cartametrica_Logo.png'
+import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
 
 const blurhash =
 '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
