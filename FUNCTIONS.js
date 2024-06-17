@@ -51,9 +51,9 @@ function getCoords(lines){
     let dep_of_lines = [];
     
     // calculate latitude for each line
-    for (let i = 0; i < lines.length; i++) {
-        let distance = lines[i][0];
-        let azimuth_n = lines[i][1];
+    for (let i1 = 0; i1 < lines.length; i1++) {
+        let distance = lines[i1][0];
+        let azimuth_n = lines[i1][1];
         let departure = (distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
@@ -62,8 +62,8 @@ function getCoords(lines){
     let DepSums = 0
     let cumulativeDepSums = [];
 
-    for (let j = 0; j < lat_of_lines.length; j++) {
-        DepSums += dep_of_lines[j]
+    for (let j1 = 0; j1 < lat_of_lines.length; j1++) {
+        DepSums += dep_of_lines[j1]
         cumulativeDepSums.push(DepSums);
     }
 
@@ -71,8 +71,8 @@ function getCoords(lines){
     let Eastings = [20000];
 
     // calculate Northings
-    for (let k = 0; k < cumulativeLatSums.length; k++) {
-        let E_coord = 20000 + cumulativeDepSums[k]
+    for (let k1 = 0; k1 < cumulativeLatSums.length; k1++) {
+        let E_coord = 20000 + cumulativeDepSums[k1]
         Eastings.push(E_coord);
     }
 
@@ -88,12 +88,52 @@ function getCoords(lines){
     return Coordinates
 }
 
+
 // CALCULATIG CORRECTIONS
-function getLEC (Sum_Lat, Sum_Dep) {
+function getLEC (lines) {
     /*
-    calculate the LEC using Sum_Lat and Sum_Dep
+    
     */
-    let LEC = sqrt((pow(Sum_Lat, 2)) + (pow(Sum_Dep,2)))
+
+    // list of calculated latitudes
+    let lat_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i = 0; i < lines.length; i++) {
+        let distance = lines[i][0];
+        let azimuth_n = lines[i][1];
+        let latitude = (distance*cos(radians*azimuth_n))
+        lat_of_lines.push(latitude);
+    }
+
+    // list of cumulative LatSums
+    let LatSum = 0
+
+    // calculating LatSum
+    for (let i = 0; i < lat_of_lines.length; i++) {
+        LatSum += lat_of_lines [i] ;
+    }
+        
+// list of calculated departures
+let dep_of_lines = [];
+    
+// calculate latitude for each line
+for (let i = 0; i < lines.length; i++) {
+    let distance = lines[i][0];
+    let azimuth_n = lines[i][1];
+    let departure = (distance*sin(radians*azimuth_n))
+    dep_of_lines.push(departure);
+}
+
+// list of cumulative LatSums
+let DepSum = 0
+
+// calculating LatSum
+for (let i = 0; i < dep_of_lines.length; i++) {
+    DepSum += dep_of_lines [i] ;
+}
+
+    let LEC = sqrt((pow(LatSum, 2)) + (pow(DepSum,2)))
     return LEC
 } 
 
@@ -164,15 +204,17 @@ function getBoSE (Sum_Lat, Sum_Dep){
         let BoSE = "EWAN"
         return BoSE
     }
-
-    var data = [
-        [13.23, 124.795], 
-        [15.57, 14.143], 
-        [43.36, 270.000], 
-        [23.09, 188.169], 
-        [10.99, 180.000], 
-        [41.40, 50.562], 
-    ]
+}
     
-    Northing = getCoords(data)
-    console.log(Northing)
+var data = [
+    [13.23, 124.795], 
+    [15.57, 14.143], 
+    [43.36, 270.000], 
+    [23.09, 188.169], 
+    [10.99, 180.000], 
+    [41.40, 50.562], 
+]
+
+Coordinates = getCoords(data)
+console.log(Coordinates)
+

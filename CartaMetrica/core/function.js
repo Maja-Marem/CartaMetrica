@@ -1,52 +1,92 @@
-// Imports "Relevant functions outside python"
-const { abs, floor, cos, sin, atan, sqrt, pow } = Math
-const radians = Math.PI/180
-const degrees = 180/Math.PI
+ // Imports "Relevant functions outside javascript"
+ const { abs, floor, cos, sin, atan, sqrt, pow } = Math
+ const radians = Math.PI/180
+ const degrees = 180/Math.PI
 
- //  Functions for calculating latitude and departure
-export function getLatitude (distance, azimuth_N) {
+ // CALCULATING NORTHING FOR PLOT
+function getCoords(lines){
     /*
-     Calculates the Latitude of the line using the set parameters
+    Description:
+    This Function calculates the Northings and Easting of Points
+    in a traverse with initial point at coordinates 
+    (N: 20000; E: 20000)
 
-     The product of negative distance and cos azimuth from the
-     south in radians
+    Output: 
+    List of Lists of Northing and Easting 
+    Rounded to the nearest thousndths
 
-     Parameters: distance, azimuth
-     */
-     let latitude = (distance*cos(radians*azimuth_N))
-     return latitude
- }
+    Parameters:
+    List of Line Descriptions - distance and azimuth from the North
+    */
+    // list of calculated latitudes
+    let lat_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i = 0; i < lines.length; i++) {
+        let distance = lines[i][0];
+        let azimuth_n = lines[i][1];
+        let latitude = (distance*cos(radians*azimuth_n))
+        lat_of_lines.push(latitude);
+    }
 
-export function getDeparture (distance, azimuth_N) {
-     /*
-     Calculates the Departure of the line using the set parameters
+    // list of cumulative LatSums
+    let LatSums = 0
+    let cumulativeLatSums = [];
 
-     The product of negative distance and sin azimuth from the
-     south in radians
+    for (let j = 0; j < lat_of_lines.length; j++) {
+        LatSums += lat_of_lines[j]
+        cumulativeLatSums.push(LatSums);
+    }
 
-     Parameters: distance, azimuth
-      */
-      let departure = (distance*sin(radians*azimuth_N))
-      return departure
- }
+    // list of Northings (P1northing - 20000)
+    let Northings = [20000];
 
-export function getNorthing (N_Prev, latitude){
-     /*
-     calculates the Northing of the line using the calculated
-     parameters N_Preve and Latitude
-     */
-     let northing = N_Prev + latitude
-     return northing
- }
+    // calculate Northings
+    for (let k = 0; k < cumulativeLatSums.length; k++) {
+        let N_coord = 20000 + cumulativeLatSums[k]
+        Northings.push(N_coord);
+    }
 
-export function getEasting (E_Prev, departure){
-     /*
-     calculates the Northing of the line using the calculated
-     parameters N_Preve and Latitude
-     */
-     let easting = E_Prev + departure
-     return easting
- }
+    // list of calculated departures
+    let dep_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i1 = 0; i1 < lines.length; i1++) {
+        let distance = lines[i1][0];
+        let azimuth_n = lines[i1][1];
+        let departure = (distance*sin(radians*azimuth_n))
+        dep_of_lines.push(departure);
+    }
+
+    // list of cumulative LatSums
+    let DepSums = 0
+    let cumulativeDepSums = [];
+
+    for (let j1 = 0; j1 < lat_of_lines.length; j1++) {
+        DepSums += dep_of_lines[j1]
+        cumulativeDepSums.push(DepSums);
+    }
+
+    // list of Northings (P1northing - 20000)
+    let Eastings = [20000];
+
+    // calculate Northings
+    for (let k1 = 0; k1 < cumulativeLatSums.length; k1++) {
+        let E_coord = 20000 + cumulativeDepSums[k1]
+        Eastings.push(E_coord);
+    }
+
+    // appended list of coordinates
+    let Coordinates = []
+    
+    // summary list of coordinates
+    for (let c = 0; c < Northings.length; c++) {
+        let Coords = [Northings[c], Eastings[c]]
+        Coordinates.push(Coords)
+    }
+        
+    return Coordinates
+}
 
 export function getLEC (Sum_Lat, Sum_Dep) {
      /*
