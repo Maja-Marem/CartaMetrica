@@ -1,6 +1,7 @@
 // screens/Main.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { Image } from 'expo-image';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
 
 const blurhash =
