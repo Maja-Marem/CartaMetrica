@@ -13,7 +13,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Plotting" component={Plotting} />
       </Stack.Navigator>

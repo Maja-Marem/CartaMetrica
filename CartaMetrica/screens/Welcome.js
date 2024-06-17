@@ -30,9 +30,8 @@ const Welcome = ({ navigation }) => {
       </View>
       
       <View style={styles.box3}>
-        {/* <Text>Welcome Screen</Text> */}
         <Button
-          title="Go to Main"
+          title="START >"
           onPress={() => navigation.navigate('Main')}
         />
       </View>
