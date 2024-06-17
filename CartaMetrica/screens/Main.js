@@ -28,7 +28,7 @@ const Main = ({navigation}) => {
           style={styles.image}
           source={Cartametrica_Logo}
           placeholder={blurhash}
-          contentFit="cover"
+          resizeMode="contain"
           transition={1000}
         />
       </View>
@@ -57,11 +57,15 @@ const Main = ({navigation}) => {
           onChangeText={setAzimuth}
         />
       </View>
-      <Button title="Add new line?" onPress={addLine} />
-      <Button
-        title="Go to Plotting"
-        onPress={() => navigation.navigate('Plotting')}
-      />
+
+      <View style={styles.buttonline}>
+        <Button title="Add new line?" onPress={addLine} />
+        <Button
+          title="Go to Plotting"
+          onPress={() => navigation.navigate('Plotting')}
+        />
+      </View>
+
     </View>
   );
 };
@@ -94,7 +98,11 @@ const styles = StyleSheet.create({
     margin: 5,
     width: 100,
     textAlign: 'center',
+    marginBottom: 20,
   },
+  buttonline: {
+    flex: 1,
+  }
 });
 
 export default Main;

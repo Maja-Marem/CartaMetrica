@@ -10,12 +10,12 @@ const blurhash =
 const Plotting = ({ navigation }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={styles.box1}>
+      <View style={styles.box1}> 
         <Image
           style={styles.image}
           source={Cartametrica_Logo}
           placeholder={blurhash}
-          contentFit="cover"
+          resizeMode="contain"
           transition={1000}
         />
       </View>
@@ -41,7 +41,7 @@ export default Plotting;
 const styles = StyleSheet.create({
   box1: {
     width: '100%',
-    height: '15%',
+    height: '20%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
