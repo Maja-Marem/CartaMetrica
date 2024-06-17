@@ -28,7 +28,7 @@ const Welcome = ({ navigation }) => {
 
 
       </View>
-      
+
       <View style={styles.box3}>
         <Button
           title="START >"
