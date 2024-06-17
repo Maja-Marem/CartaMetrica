@@ -22,7 +22,8 @@ const Welcome = ({ navigation }) => {
 
       <View style={styles.box2}>
         <View style={styles.box21}>
-          <Text>WELCOME</Text>
+          <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginBottom: 10}}>WELCOME</Text>
+          <Text>(introductory message and instructions)</Text>
         </View>
 
 
