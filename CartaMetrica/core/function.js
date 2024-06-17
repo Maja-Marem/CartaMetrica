@@ -228,7 +228,7 @@ export function getREC (lines) {
             return REC
         }
         else if (cREC) {
-            let REC = "ERROR: Calculated REC is Below accepted error of closure tolerance"
+            let REC = "ERROR: Calculated REC is Below accepted Error of Tolerance"
             return REC
         }
         else{
