@@ -146,7 +146,7 @@ const Main = ({ navigation }) => {
           onPress={()=>calculate()}
         />
       </View>
-
+      
     </View>
   );
 };
@@ -191,5 +191,9 @@ const styles = StyleSheet.create({
     margin: 5,
     width: '35%',
     textAlign: 'center',
+    marginBottom: 20,
   },
+  buttonline: {
+    flex: 1,
+  }
 });
