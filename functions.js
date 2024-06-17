@@ -4,14 +4,14 @@
  const degrees = 180/Math.PI
 
  // CALCULATING NORTHING FOR PLOT
-function getNorthings(lines){
+function getCoords(lines){
     // list of calculated latitudes
     let lat_of_lines = [];
     
     // calculate latitude for each line
     for (let i = 0; i < lines.length; i++) {
-        let distance = row[i][0]
-        let azimuth_n = row[i][1]
+        let distance = lines[i][0];
+        let azimuth_n = lines[i][1];
         let latitude = (distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
@@ -22,17 +22,57 @@ function getNorthings(lines){
 
     for (let j = 0; j < lat_of_lines.length; j++) {
         LatSums += lat_of_lines[j]
-        cumulativeLatSums.push(LatSums)
+        cumulativeLatSums.push(LatSums);
     }
 
     // list of Northings (P1northing - 20000)
     let Northings = [20000];
 
     // calculate Northings
-    for (let k = 0; k < cumulativeLatSums; k++) {
+    for (let k = 0; k < cumulativeLatSums.length; k++) {
         let N_coord = 20000 + cumulativeLatSums[k]
-        Northings.push(N_coord)
+        Northings.push(N_coord);
     }
+
+    // list of calculated departures
+    let dep_of_lines = [];
+    
+    // calculate latitude for each line
+    for (let i = 0; i < lines.length; i++) {
+        let distance = lines[i][0];
+        let azimuth_n = lines[i][1];
+        let departure = (distance*sin(radians*azimuth_n))
+        dep_of_lines.push(departure);
+    }
+
+    // list of cumulative LatSums
+    let DepSums = 0
+    let cumulativeDepSums = [];
+
+    for (let j = 0; j < lat_of_lines.length; j++) {
+        DepSums += dep_of_lines[j]
+        cumulativeDepSums.push(DepSums);
+    }
+
+    // list of Northings (P1northing - 20000)
+    let Eastings = [20000];
+
+    // calculate Northings
+    for (let k = 0; k < cumulativeLatSums.length; k++) {
+        let E_coord = 20000 + cumulativeDepSums[k]
+        Eastings.push(E_coord);
+    }
+
+    // appended list of coordinates
+    let Coordinates = []
+    
+    // summary list of coordinates
+    for (let c = 0; c < Northings.length; c++) {
+        let Coords = [Northings[c], Eastings[c]]
+        Coordinates.push(Coords)
+    }
+        
+    return Coordinates
 }
 
 var data = [
@@ -44,5 +84,5 @@ var data = [
     [41.40, 50.562], 
 ]
 
-Northing = getNorthings(data)
+Northing = getCoords(data)
 console.log(Northing)
