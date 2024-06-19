@@ -60,7 +60,7 @@ export function getCoords(lines){
     for (let i1 = 0; i1 < lines.length; i1++) {
         let distance =  parseFloat(lines[i1].distance );
         let azimuth_n = parseFloat(lines[i1].azimuth );
-        let departure = (distance*sin(radians*azimuth_n))
+        let departure = ( - distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
 
