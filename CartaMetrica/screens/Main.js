@@ -3,12 +3,14 @@ import React, {useState} from 'react';
 import { StyleSheet, View, Text, Button, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
-import { getLEC } from '../core/function';
+import { getLEC, getREC, getBoSE, getCoords } from '../core/function';
+import { useNavigation } from '@react-navigation/native';
 
 const blurhash =
 '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
-const Main = ({ navigation }) => {
+const Main = () => {
+  const navigation = useNavigation();
 
   const [isEditing, setIsEditing] = useState(true)
   const [editingIndex, setEditingIndex] = useState(0)
@@ -16,7 +18,6 @@ const Main = ({ navigation }) => {
   const [distance, setDistance] = useState('');
   const [azimuth, setAzimuth] = useState('');
   const [error, setError] = useState('');
-  const [LEC, setLEC] = useState(0);
 
   const addLine = () => {
     if (isEditing) {
@@ -61,11 +62,19 @@ const Main = ({ navigation }) => {
   };
 
   const calculate = () => {
-    // Put the function of computing your LEC and REC here
-    let linearerrorofclosure = getLEC(lines)
-    setLEC(linearerrorofclosure)
-  }
+    let lec = getLEC(lines)
+    let rec = getREC(lines)
+    let bose = getBoSE(lines)
+    let coordinates = getCoords(lines)
 
+    navigation.navigate('Plotting', {
+      LEC: lec,
+      REC: rec,
+      BoSE: bose,
+      Coords: coordinates
+    });
+  }
+ 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <View style={styles.box1}>
@@ -134,7 +143,6 @@ const Main = ({ navigation }) => {
           </TouchableOpacity>
 
           <Text style={{textAlign: 'center', marginBottom: 10, color: 'crimson'}}>{error}</Text>
-          <Text style={{textAlign: 'center', marginBottom: 10, color: 'crimson'}}>LEC: {LEC} </Text>
         </ScrollView>
       </View>
 
@@ -194,4 +202,5 @@ const styles = StyleSheet.create({
   buttonline: {
     flex: 1,
   }
+  
 });
