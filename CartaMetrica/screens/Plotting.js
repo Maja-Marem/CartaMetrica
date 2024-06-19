@@ -1,7 +1,6 @@
 // screens/Plotting.js
 import React from 'react';
-import { Image } from 'expo-image';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import Cartametrica_Logo from '../pictures/Cartametrica_Logo.png';
 
 const blurhash =
@@ -13,7 +12,7 @@ const Plotting = ({ route, navigation }) => {
   
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={styles.box0}> 
+      <View style={styles.logoContainer}> 
         <Image
           style={styles.image}
           source={Cartametrica_Logo}
@@ -53,7 +52,7 @@ const Plotting = ({ route, navigation }) => {
 export default Plotting;
 
 const styles = StyleSheet.create({
-  box0: {
+  logoContainer: {
     width: '100%',
     height: '15%',
     alignItems: 'center',
@@ -96,5 +95,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
+  },
+  image: {
+    width: '100%',
+    height: '100%', 
+    resizeMode: 'contain', 
   },
 });
