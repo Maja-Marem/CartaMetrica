@@ -162,14 +162,14 @@ export default Main;
 const styles = StyleSheet.create({
   box1: {
     width: '100%',
-    height: '20%',
+    height: '30%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
   },
   box2: {
     width: '100%',
-    height: '60%',
+    height: '50%',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
