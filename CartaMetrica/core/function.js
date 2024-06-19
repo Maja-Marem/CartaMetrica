@@ -294,7 +294,7 @@ export function getBoSE (lines){
 
     // Calculating for the BoSE - based on difference cases
     if (LatSum < 0 && DepSum < 0){
-        let BoSE_mag = atan(DepSum/LatSum)*degrees
+        let BoSE_mag = abs(atan(DepSum/LatSum)*degrees)
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
@@ -303,7 +303,7 @@ export function getBoSE (lines){
         return BoSE
     }
     else if (LatSum < 0 && DepSum > 0){
-        let BoSE_mag = atan(DepSum/LatSum)*degrees
+        let BoSE_mag = abs(atan(DepSum/LatSum)*degrees)
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
@@ -312,7 +312,7 @@ export function getBoSE (lines){
         return BoSE
     }
     else if (LatSum > 0 && DepSum > 0){
-        let BoSE_mag = atan(DepSum/LatSum)*degrees
+        let BoSE_mag = abs(atan(DepSum/LatSum)*degrees)
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)
@@ -321,7 +321,7 @@ export function getBoSE (lines){
         return BoSE
     }
     else if (LatSum > 0 && DepSum < 0){
-        let BoSE_mag = atan(DepSum/LatSum)*degrees
+        let BoSE_mag = abs(atan(DepSum/LatSum)*degrees)
         let BoSE_degs = parseInt(BoSE_mag)
         let BoSE_mins = parseInt((BoSE_mag - BoSE_degs)*60)
         let BoSE_secs = ((((BoSE_mag - BoSE_degs)*60)- BoSE_mins)*60).toFixed(2)

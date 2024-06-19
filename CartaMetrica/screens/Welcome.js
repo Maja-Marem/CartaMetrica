@@ -22,9 +22,9 @@ const Welcome = ({ navigation }) => {
 
       <View style={styles.box2}>
         <View style={styles.box21}>
-          <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginBottom: 10}}>WELCOME</Text>
-          <Text style={{textAlign: 'center', marginBottom: 10}}>Get ready to revolutionize the way you visualize and analyze traverses! Cartametrica is your ultimate companion in Traverse Plotting, crafted specifically for students and professionals. With Cartametrica, we'll transform complex traverse data into stunning, easy-to-understand visuals with just a few taps.</Text>
-          <Text style={{textAlign: 'center', marginBottom: 10}}>Immerse yourself in the world of geodetic engineering and discover new dimensions of plotting and exploration. Welcome to Cartametrica – where precision meets simplicity.</Text>
+          <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 35, marginBottom: 10}}>WELCOME</Text>
+          <Text style={{textAlign: 'justify', marginBottom: 10}}>Get ready to revolutionize the way you visualize and analyze traverses! Cartametrica is your ultimate companion in Traverse Plotting, crafted specifically for students and professionals. With Cartametrica, we'll transform complex traverse data into stunning, easy-to-understand visuals with just a few taps.</Text>
+          <Text style={{textAlign: 'justify', marginBottom: 10}}>Immerse yourself in the world of geodetic engineering and discover new dimensions of plotting and exploration. Welcome to Cartametrica – where precision meets simplicity.</Text>
         
         </View>
 
