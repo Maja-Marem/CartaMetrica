@@ -228,8 +228,8 @@ export function getREC (lines) {
             let REC = "1:" + floor((cREC)/1000)*1000
             return REC
         }
-        else if (cREC) {
-            let REC = "ERROR: Calculated REC is Below accepted Error of Tolerance"
+        else if (cREC<1000) {
+            let REC = "1: " + cREC.toFixed(3) + " /ERROR: REC too low"
             return REC
         }
         else{

@@ -13,7 +13,7 @@ const Plotting = ({ route, navigation }) => {
   
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={styles.box1}> 
+      <View style={styles.box0}> 
         <Image
           style={styles.image}
           source={Cartametrica_Logo}
@@ -21,6 +21,13 @@ const Plotting = ({ route, navigation }) => {
           resizeMode="contain"
           transition={1000}
         />
+      </View>
+
+      <View style={styles.box1}>
+        <View style={styles.box11}>
+          <Text>PLOT</Text>
+        </View>
+
       </View>
 
       <View style={styles.box2}>
@@ -46,12 +53,26 @@ const Plotting = ({ route, navigation }) => {
 export default Plotting;
 
 const styles = StyleSheet.create({
-  box1: {
+  box0: {
     width: '100%',
-    height: '60%',
+    height: '15%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
+  },
+  box1: {
+    width: '100%',
+    height: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#efefd7',
+  },
+  box11: {
+    flex: 1,
+    width: '90%',
+    height: '80%',
+    alignItems: 'center',
+    backgroundColor: '#e8e3c3',
   },
   box2: { 
     width: '100%',
@@ -71,7 +92,7 @@ const styles = StyleSheet.create({
   },
   box4: {
     width: '100%',
-    height: '20%',
+    height: '15%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
