@@ -103,7 +103,7 @@ const Plotting = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   logoContainer: {
     width: '100%',
-    height: '15%',
+    height: '20%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   box4: {
     width: '100%',
-    height: '15%',
+    height: '20%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#efefd7',
