@@ -14,7 +14,7 @@ const Plotting = ({ route, navigation }) => {
 
   // Calculate viewBox dimensions based on box11 dimensions
   const box11Width = Dimensions.get('window').width * 0.9; // 90% of screen width
-  const box11Height = Dimensions.get('window').height * 0.5; // 50% of screen height
+  const box11Height = Dimensions.get('window').height * 0.4; // 50% of screen height
 
   // Calculate scaling factors for fitting the graph into box11
   const maxX = Math.max(...coordinates.map(coord => coord.x));
@@ -28,7 +28,7 @@ const Plotting = ({ route, navigation }) => {
   // Determine scaling factors for fitting the graph into box11
   const scaleX = box11Width / traverseWidth;
   const scaleY = box11Height / traverseHeight;
-  const scale = Math.min(scaleX, scaleY) * 0.9; // Apply a slight margin
+  const scale = Math.min(scaleX, scaleY) * 0.7; // Apply a slight margin
 
   // Translate coordinates to fit into box11
   const translatedCoordinates = coordinates.map(coord => ({

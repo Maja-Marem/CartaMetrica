@@ -119,7 +119,7 @@ export function getLEC (lines) {
     for (let i = 0; i < lines.length; i++) {
         let distance =  parseFloat(lines[i].distance );
         let azimuth_n =  parseFloat(lines[i].azimuth );
-        let latitude = (distance*cos(radians*azimuth_n))
+        let latitude = ( - distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
 
@@ -138,7 +138,7 @@ export function getLEC (lines) {
     for (let i1 = 0; i1 < lines.length; i1++) {
         let distance =  parseFloat(lines[i1].distance );
         let azimuth_n =  parseFloat(lines[i1].azimuth );
-        let departure = (distance*sin(radians*azimuth_n))
+        let departure = ( - distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
     // Sum of Departures
@@ -180,7 +180,7 @@ export function getREC (lines) {
     for (let i = 0; i < lines.length; i++) {
         let distance =  parseFloat(lines[i].distance );
         let azimuth_n =  parseFloat(lines[i].azimuth );
-        let latitude = (distance*cos(radians*azimuth_n))
+        let latitude = ( - distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
 
@@ -199,7 +199,7 @@ export function getREC (lines) {
     for (let i1 = 0; i1 < lines.length; i1++) {
         let distance =  parseFloat(lines[i1].distance );
         let azimuth_n =  parseFloat(lines[i1].azimuth );
-        let departure = (distance*sin(radians*azimuth_n))
+        let departure = ( - distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
     // Sum of Departures
@@ -262,7 +262,7 @@ export function getBoSE (lines){
     for (let i = 0; i < lines.length; i++) {
         let distance =  parseFloat(lines[i].distance );
         let azimuth_n =  parseFloat(lines[i].azimuth );
-        let latitude = (distance*cos(radians*azimuth_n))
+        let latitude = ( - distance*cos(radians*azimuth_n))
         lat_of_lines.push(latitude);
     }
 
@@ -281,7 +281,7 @@ export function getBoSE (lines){
     for (let i1 = 0; i1 < lines.length; i1++) {
         let distance =  parseFloat(lines[i1].distance );
         let azimuth_n =  parseFloat(lines[i1].azimuth );
-        let departure = (distance*sin(radians*azimuth_n))
+        let departure = ( - distance*sin(radians*azimuth_n))
         dep_of_lines.push(departure);
     }
     // Sum of Departures
