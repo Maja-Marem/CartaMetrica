@@ -94,8 +94,12 @@ const Plotting = ({ route, navigation }) => {
 
       {/* Button */}
       <View style={styles.box4}>
-        <Button title="PLOT AGAIN >" onPress={() => navigation.navigate('Main')} />
-      </View>
+        <View style={styles.box5}>
+          <Button title="< PLOT AGAIN " onPress={() => navigation.navigate('Main')} />
+          <Button title="HOME >" onPress={() => navigation.navigate('Welcome')} />
+        </View>
+      </View>  
+    
     </View>
   );
 };
@@ -139,6 +143,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#efefd7',
   },
   box4: {
+    width: '100%',
+    height: '20%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#efefd7',
+  },
+  box5: {
     width: '100%',
     height: '20%',
     alignItems: 'center',
